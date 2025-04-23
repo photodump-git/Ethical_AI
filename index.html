@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EquiAid - Ethical Disaster Relief</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>EquiAid</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-target="dashboard"><span class="icon">📊</span> Dashboard</li>
+                    <li data-target="crisis-map"><span class="icon">🗺️</span> Crisis Map</li>
+                    <li data-target="resources"><span class="icon">📦</span> Resources</li>
+                    <li data-target="vulnerability"><span class="icon">📉</span> Vulnerability</li>
+                    <li data-target="feedback"><span class="icon">💬</span> Community Feedback</li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="user-avatar">👤</div>
+                <div class="user-details">
+                    <p class="user-name">Relief Coordinator</p>
+                    <p class="user-role">Admin</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <button>🔍</button>
+                </div>
+                <div class="notifications">
+                    <span class="icon">🔔</span>
+                    <span class="badge">3</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="page active">
+                <h2>Dashboard</h2>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Active Crises</h3>
+                        <p class="stat-number">8</p>
+                        <p class="stat-trend up">↑ 2 new</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>People Affected</h3>
+                        <p class="stat-number">245,862</p>
+                        <p class="stat-trend up">↑ 13% this week</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Resources Deployed</h3>
+                        <p class="stat-number">75%</p>
+                        <p class="stat-trend down">↓ 5% capacity</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Feedback Reports</h3>
+                        <p class="stat-number">42</p>
+                        <p class="stat-trend neutral">→ Stable</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Vulnerability Index by Region</h3>
+                        <canvas id="vulnerability-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Resource Allocation Efficiency</h3>
+                        <canvas id="resource-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="recent-alerts">
+                    <h3>Recent Alerts</h3>
+                    <div class="alert-list">
+                        <div class="alert high">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <h4>Flash Flooding - Eastern District</h4>
+                                <p>Vulnerable communities require immediate assistance.</p>
+                                <span class="alert-time">35 minutes ago</span>
+                            </div>
+                            <button class="alert-action">Respond</button>
+                        </div>
+                        <div class="alert medium">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <h4>Resource Shortfall - Medical Supplies</h4>
+                                <p>Southern region reporting 30% shortfall in critical supplies.</p>
+                                <span class="alert-time">2 hours ago</span>
+                            </div>
+                            <button class="alert-action">Allocate</button>
+                        </div>
+                        <div class="alert low">
+                            <span class="alert-icon">ℹ️</span>
+                            <div class="alert-content">
+                                <h4>New Vulnerability Data Available</h4>
+                                <p>Updated metrics for Northern communities ready for review.</p>
+                                <span class="alert-time">Yesterday</span>
+                            </div>
+                            <button class="alert-action">Review</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crisis Map Section -->
+            <section id="crisis-map" class="page">
+                <h2>Crisis Map</h2>
+                <div class="map-controls">
+                    <div class="filter-group">
+                        <label>Filter by:</label>
+                        <select id="map-filter">
+                            <option value="vulnerability">Vulnerability Index</option>
+                            <option value="resources">Resource Coverage</option>
+                            <option value="incidents">Incident Density</option>
+                        </select>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span class="color-indicator high"></span>
+                            <span>High Risk</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-indicator medium"></span>
+                            <span>Medium Risk</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-indicator low"></span>
+                            <span>Low Risk</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-container">
+                    <div id="map">
+                        <!-- Map will be rendered here by JavaScript -->
+                    </div>
+                    <div class="map-info-panel">
+                        <h3>Region Details</h3>
+                        <div class="region-info" id="region-info">
+                            <p>Select a region on the map to view details</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resource Allocation Section -->
+            <section id="resources" class="page">
+                <h2>Resource Allocation</h2>
+                
+                <div class="resource-inventory">
+                    <h3>Current Inventory</h3>
+                    <div class="resource-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">🥫</div>
+                            <div class="resource-info">
+                                <h4>Food Supplies</h4>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 65%"></div>
+                                </div>
+                                <p>65% - 3,250 meals remaining</p>
+                            </div>
+                            <button class="resource-action">Manage</button>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">💧</div>
+                            <div class="resource-info">
+                                <h4>Clean Water</h4>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 42%"></div>
+                                </div>
+                                <p>42% - 8,400 liters remaining</p>
+                            </div>
+                            <button class="resource-action">Manage</button>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">🏥</div>
+                            <div class="resource-info">
+                                <h4>Medical Supplies</h4>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 28%"></div>
+                                </div>
+                                <p>28% - Critical shortage</p>
+                            </div>
+                            <button class="resource-action">Manage</button>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">🏕️</div>
+                            <div class="resource-info">
+                                <h4>Temporary Shelter</h4>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 83%"></div>
+                                </div>
+                                <p>83% - 415 units available</p>
+                            </div>
+                            <button class="resource-action">Manage</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="distribution-planner">
+                    <h3>Distribution Planning</h3>
+                    <div class="region-selector">
+                        <label for="region-select">Select Region:</label>
+                        <select id="region-select">
+                            <option value="north">Northern District</option>
+                            <option value="east">Eastern District</option>
+                            <option value="south">Southern District</option>
+                            <option value="west">Western District</option>
+                            <option value="central">Central District</option>
+                        </select>
+                    </div>
+                    
+                    <div class="allocation-form">
+                        <div class="form-group">
+                            <label>Food Supplies:</label>
+                            <input type="range" min="0" max="100" value="25" class="slider" id="food-slider">
+                            <span class="slider-value">25%</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Clean Water:</label>
+                            <input type="range" min="0" max="100" value="40" class="slider" id="water-slider">
+                            <span class="slider-value">40%</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Medical Supplies:</label>
+                            <input type="range" min="0" max="100" value="60" class="slider" id="medical-slider">
+                            <span class="slider-value">60%</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Temporary Shelter:</label>
+                            <input type="range" min="0" max="100" value="15" class="slider" id="shelter-slider">
+                            <span class="slider-value">15%</span>
+                        </div>
+                        
+                        <div class="allocation-summary">
+                            <h4>Impact Prediction</h4>
+                            <p>This allocation plan is estimated to address <strong>48%</strong> of critical needs in the selected region.</p>
+                            <p class="warning">⚠️ Warning: Medical supplies allocation may be insufficient based on vulnerability data.</p>
+                        </div>
+                        
+                        <div class="allocation-actions">
+                            <button class="secondary">Reset</button>
+                            <button class="primary">Apply Distribution Plan</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Vulnerability Assessment Section -->
+            <section id="vulnerability" class="page">
+                <h2>Vulnerability Assessment</h2>
+                
+                <div class="vulnerability-overview">
+                    <div class="chart-container">
+                        <h3>Vulnerability Breakdown by Factor</h3>
+                        <canvas id="vulnerability-factors-chart"></canvas>
+                    </div>
+                    
+                    <div class="region-vulnerability">
+                        <h3>Regional Vulnerability Comparison</h3>
+                        <canvas id="region-vulnerability-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="vulnerability-details">
+                    <h3>Vulnerability Factor Breakdown</h3>
+                    <table class="factor-table">
+                        <thead>
+                            <tr>
+                                <th>Factor</th>
+                                <th>Weight</th>
+                                <th>Current Value</th>
+                                <th>Impact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Disaster Proximity</td>
+                                <td>35%</td>
+                                <td>High</td>
+                                <td class="high-impact">Critical</td>
+                                <td><button class="explain-btn" data-factor="proximity">Explain</button></td>
+                            </tr>
+                            <tr>
+                                <td>Infrastructure Quality</td>
+                                <td>25%</td>
+                                <td>Low</td>
+                                <td class="high-impact">Critical</td>
+                                <td><button class="explain-btn" data-factor="infrastructure">Explain</button></td>
+                            </tr>
+                            <tr>
+                                <td>Medical Access</td>
+                                <td>20%</td>
+                                <td>Medium</td>
+                                <td class="medium-impact">Significant</td>
+                                <td><button class="explain-btn" data-factor="medical">Explain</button></td>
+                            </tr>
+                            <tr>
+                                <td>Economic Resources</td>
+                                <td>15%</td>
+                                <td>Low</td>
+                                <td class="medium-impact">Significant</td>
+                                <td><button class="explain-btn" data-factor="economic">Explain</button></td>
+                            </tr>
+                            <tr>
+                                <td>Community Cohesion</td>
+                                <td>5%</td>
+                                <td>High</td>
+                                <td class="low-impact">Minor</td>
+                                <td><button class="explain-btn" data-factor="community">Explain</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="explanation-modal" id="explanation-modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3>Why This Factor Matters</h3>
+                        <div id="factor-explanation">
+                            <!-- Content will be inserted by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Community Feedback Section -->
+            <section id="feedback" class="page">
+                <h2>Community Feedback</h2>
+                
+                <div class="feedback-grid">
+                    <div class="feedback-form-container">
+                        <h3>Submit New Field Report</h3>
+                        <form id="feedback-form">
+                            <div class="form-group">
+                                <label for="feedback-type">Report Type:</label>
+                                <select id="feedback-type" required>
+                                    <option value="">-- Select Type --</option>
+                                    <option value="resource-shortage">Resource Shortage</option>
+                                    <option value="distribution-issue">Distribution Issue</option>
+                                    <option value="new-need">Emerging Need</option>
+                                    <option value="logistical-issue">Logistical Problem</option>
+                                    <option value="success-story">Success Story</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedback-region">Region:</label>
+                                <select id="feedback-region" required>
+                                    <option value="">-- Select Region --</option>
+                                    <option value="north">Northern District</option>
+                                    <option value="east">Eastern District</option>
+                                    <option value="south">Southern District</option>
+                                    <option value="west">Western District</option>
+                                    <option value="central">Central District</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedback-severity">Urgency Level:</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="severity" value="low"> Low
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="severity" value="medium" checked> Medium
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="severity" value="high"> High
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedback-description">Description:</label>
+                                <textarea id="feedback-description" rows="4" required placeholder="Please provide specific details about the situation..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="feedback-contact">Contact Information (optional):</label>
+                                <input type="text" id="feedback-contact" placeholder="Name and contact method">
+                            </div>
+                            
+                            <button type="submit" class="primary">Submit Report</button>
+                        </form>
+                    </div>
+                    
+                    <div class="feedback-status">
+                        <h3>Recent Feedback Status</h3>
+                        <div class="feedback-list">
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <h4>Medical Supply Shortage</h4>
+                                    <span class="feedback-status-badge resolved">Resolved</span>
+                                </div>
+                                <p class="feedback-meta">Eastern District • Submitted 2 days ago</p>
+                                <p class="feedback-response">Additional medical supplies deployed. Reached community on June 12.</p>
+                            </div>
+                            
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <h4>Water Distribution Issue</h4>
+                                    <span class="feedback-status-badge in-progress">In Progress</span>
+                                </div>
+                                <p class="feedback-meta">Southern District • Submitted 1 day ago</p>
+                                <p class="feedback-response">Distribution team dispatched. Estimated resolution: 24 hours.</p>
+                            </div>
+                            
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <h4>Food Quality Concern</h4>
+                                    <span class="feedback-status-badge pending">Pending Review</span>
+                                </div>
+                                <p class="feedback-meta">Central District • Submitted 4 hours ago</p>
+                                <p class="feedback-response">Report received. Quality control team being notified.</p>
+                            </div>
+                            
+                            <div class="feedback-item">
+                                <div class="feedback-header">
+                                    <h4>Positive Impact of Shelter Program</h4>
+                                    <span class="feedback-status-badge noted">Noted</span>
+                                </div>
+                                <p class="feedback-meta">Northern District • Submitted 3 days ago</p>
+                                <p class="feedback-response">Thank you for your feedback. Success story documented for program evaluation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
