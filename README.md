@@ -1,6 +1,6 @@
-# EquiAid - Ethical Disaster Relief Platform
+# Nature Relief - Ethical Disaster Relief Platform
 
-EquiAid is a frontend application designed to facilitate the ethical distribution of disaster relief resources. The platform uses vulnerability assessments and community feedback to ensure aid is distributed equitably, with special focus on the most vulnerable communities.
+Nature Relief is a frontend application designed to facilitate the ethical distribution of disaster relief resources. The platform uses vulnerability assessments and community feedback to ensure aid is distributed equitably, with special focus on the most vulnerable communities.
 
 ## Features
 
@@ -64,7 +64,7 @@ The feedback system allows:
 
 ## Ethical Framework
 
-EquiAid implements ethical decision-making in disaster relief through:
+Nature Relief implements ethical decision-making in disaster relief through:
 
 1. **Transparency**: Clear explanations of how vulnerability scores are calculated
 2. **Equity**: Prioritizing the most vulnerable communities rather than equal distribution
